@@ -521,6 +521,7 @@ while mainrunning:
 
     elif ene_attck == True:
       if random.random() < 0.5:
+        ene_atkP = int(ene_atkP)
         dammge = ene_atkP - my_blkP
         if dammge < 0:
           dammge = 0
