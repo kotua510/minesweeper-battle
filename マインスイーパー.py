@@ -20,7 +20,7 @@ my_HP = 150
 my_EP = 0
 ene_HP = 150
 # 制限時間
-制限時間 = 30
+制限時間 = 3  # 30
 
 clock = pygame.time.Clock()
 
@@ -131,21 +131,50 @@ def show_countdown(screen, font, background_color, clock):
     for _ in range(60):  # 約1秒間表示（60 FPSの場合）
       clock.tick(60)  # フレームレートを維持
 
+名前入力 = True
+名前 = ""
 
 while タイトルrunning:
-  screen.blit(マインスイーパー開始_text, (280, 300))
-  pygame.display.flip()
-  for _ in range(120):  # 1秒間表示（60 FPS）
-    clock.tick(60)
-  screen.fill(background_color)
-  show_countdown1(screen, font_bigtext, background_color, clock)
+  if 名前入力:
+    screen.fill(background_color)
+    for event in pygame.event.get():
+      if event.type == pygame.QUIT:
+        タイトルrunning = False
+        mainrunning = False
+        pygame.quit()
+        sys.exit()
+      elif event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_RETURN:
+          名前入力 = False
+        elif event.key == pygame.K_BACKSPACE:
+          名前 = 名前[:-1]
+        else:
+          名前 += event.unicode
 
-  for event in pygame.event.get():
-    if event.type == pygame.QUIT:
-      pygame.quit()
-      sys.exit()
+    名前_text = font_bigtext.render("名前を入力してください", True, text_color)
+    名前入力_text = font_bigtext.render(名前, True, text_color)
+    screen.blit(名前_text, (150, 250))
+    screen.blit(名前入力_text, (150, 350))
+    pygame.display.flip()
+  else:
+    screen.fill(background_color)
+    screen.blit(マインスイーパー開始_text, (280, 300))
+    pygame.display.flip()
+    for _ in range(120):  # 1秒間表示（60 FPS）
+      clock.tick(60)
 
-  タイトルrunning = False
+    screen.fill(background_color)
+    show_countdown1(screen, font_bigtext, background_color, clock)
+
+    for event in pygame.event.get():
+      if event.type == pygame.QUIT:
+        タイトルrunning = False
+        mainrunning = False
+        pygame.quit()
+        sys.exit()
+
+    タイトルrunning = False
+
 
 マインスイーパー終了 = False
 
@@ -489,7 +518,7 @@ while mainrunning:
       マインスイーパーrunning = False
       mainrunning = False
     elif my_end == True:
-      my_end_text = font_battle.render(f"あなたは宇宙人に倒されてしまった", True, text_color)
+      my_end_text = font_battle.render(f"{名前}は宇宙人に倒されてしまった", True, text_color)
       screen.blit(my_end_text, (520, 430))
       pygame.display.flip()
       time.sleep(3)
@@ -505,7 +534,7 @@ while mainrunning:
 
       自爆_text1 = font_battle.render(f"先ほど解除できなかった爆弾は{自爆}つ!", True, text_color)
       自爆_text2 = font_battle.render(
-          f"あなたに{自爆dammge + 自爆plus}ポイントのダメージ!", True, text_color)
+          f"{名前}に{自爆dammge + 自爆plus}ポイントのダメージ!", True, text_color)
       自爆_text3 = font_battle.render(f"爆弾を解除しろ!!", True, text_color)
       screen.blit(自爆_text1, (520, 430))
       screen.blit(自爆_text2, (520, 460))
@@ -529,7 +558,7 @@ while mainrunning:
         my_HP = my_HP - dammge
         ene_attck_text1 = font_battle.render(f"宇宙人の攻撃!", True, text_color)
         ene_attck_text2 = font_battle.render(
-            f"あなたに{dammge}ポイントのダメージ!", True, text_color)
+            f"{名前}に{dammge}ポイントのダメージ!", True, text_color)
         screen.blit(ene_attck_text1, (520, 430))
         screen.blit(ene_attck_text2, (520, 460))
         pygame.display.flip()
@@ -542,7 +571,7 @@ while mainrunning:
         ene_attck_text3 = font_battle.render(
             f"宇宙人のエネルギースティール!", True, text_color)
         ene_attck_text4 = font_battle.render(
-            f"あなたのエネルギーが{ene_atkP}ポイント減少した!", True, text_color)
+            f"{名前}のエネルギーが{ene_atkP}ポイント減少した!", True, text_color)
         screen.blit(ene_attck_text3, (520, 430))
         screen.blit(ene_attck_text4, (520, 460))
         pygame.display.flip()
@@ -553,7 +582,7 @@ while mainrunning:
 
     elif 道具選択 == False and attckmode == True:
       ene_HP = ene_HP - my_atkP
-      text_attck1 = font_battle.render(f"あなたの攻撃!", True, text_color)
+      text_attck1 = font_battle.render(f"{名前}の攻撃!", True, text_color)
       text_attck2 = font_battle.render(f"宇宙人に{my_atkP}のダメージ", True, text_color)
       screen.blit(text_attck1, (520, 430))
       screen.blit(text_attck2, (520, 460))
