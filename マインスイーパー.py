@@ -531,6 +531,8 @@ while mainrunning:
       if 自爆dammge < 0:
         自爆dammge = 0
       my_HP = my_HP - 自爆dammge - 自爆plus
+      if my_HP <= 0:
+        my_HP = 0
 
       自爆_text1 = font_battle.render(f"先ほど解除できなかった爆弾は{自爆}つ!", True, text_color)
       自爆_text2 = font_battle.render(
@@ -542,6 +544,7 @@ while mainrunning:
       pygame.display.flip()
       time.sleep(3)
       if my_HP <= 0:
+        my_HP = 0
         my_end = True
       else:
         マインスイーパーrunning = True
@@ -556,6 +559,8 @@ while mainrunning:
         if dammge < 0:
           dammge = 0
         my_HP = my_HP - dammge
+        if my_HP <= 0:
+          my_HP = 0
         ene_attck_text1 = font_battle.render(f"宇宙人の攻撃!", True, text_color)
         ene_attck_text2 = font_battle.render(
             f"{名前}に{dammge}ポイントのダメージ!", True, text_color)
@@ -578,6 +583,7 @@ while mainrunning:
         time.sleep(2)
         自爆計算 = True
       if my_HP <= 0:
+        my_HP = 0
         my_end = True
 
     elif 道具選択 == False and attckmode == True:
