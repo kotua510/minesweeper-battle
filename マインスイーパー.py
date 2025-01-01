@@ -460,6 +460,7 @@ while mainrunning:
 
           elif event.key == pygame.K_SPACE:
             attckmode = True
+            道具選択 = False
 
     if 道具選択 == True and 道具一覧 == True:
       for i, text1 in enumerate(my_items):
