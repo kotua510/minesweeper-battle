@@ -180,6 +180,9 @@ def RPG_draw():
   screen.blit(自爆_text, (520, 140))
   screen.blit(解除_text, (520, 180))
 
+num_bombs = 18
+all_bombs = 18
+
 mainrunning = True
 while mainrunning:
   # ゲームループ
@@ -191,8 +194,8 @@ while mainrunning:
     bombs = [[False for _ in range(cols)] for _ in range(rows)]
     corect = [[False for _ in range(cols)]for _ in range(rows)]
     not右クリック = [[False for _ in range(cols)]for _ in range(rows)]
-    num_bombs = 20
-    all_bombs = 20
+    num_bombs += 2
+    all_bombs += 2
 
     増加エネルギー量 = 0
     解除爆弾数 = 0
@@ -205,7 +208,7 @@ while mainrunning:
     マインスイーパー終了 = False
 
     右クリック制限prus = 0
-    右クリック制限 = int(num_bombs + 3 + 右クリック制限prus)
+    右クリック制限 = int(all_bombs + 3 + 右クリック制限prus)
     while num_bombs > 0:
 
       row = random.randint(0, rows - 1)
