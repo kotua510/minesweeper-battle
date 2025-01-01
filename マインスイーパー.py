@@ -41,7 +41,7 @@ my_items = []
 
 def item_get():
   道具数 = len(my_items)
-  if 道具数 == 7:
+  if 道具数 <= 7:
     itemadd = random.randint(1, 6)
     if itemadd == 1:
       my_items.append("シールド")
@@ -55,21 +55,6 @@ def item_get():
       my_items.append("救急箱")
     else:
       my_items.append("爆弾解除装置")
-  elif 道具数 <= 6:
-    for i in range(2):
-      itemadd = random.randint(1, 6)
-      if itemadd == 1:
-        my_items.append("シールド")
-      elif itemadd == 2:
-        my_items.append("スーパーシールド")
-      elif itemadd == 3:
-        my_items.append("ソード")
-      elif itemadd == 4:
-        my_items.append("TNT")
-      elif itemadd == 5:
-        my_items.append("救急箱")
-      else:
-        my_items.append("爆弾解除装置")
 
 # 周囲の爆弾数をカウントする関数
 def count_adjacent_bombs(r, c):
@@ -449,6 +434,7 @@ while mainrunning:
                   f'シールドを使った！', True, text_color)
               道具2_text = font_battle.render(
                   f'自爆のダメージが-5される!', True, text_color)
+              道具img = シールドimg
             elif 選択された道具 == "スーパーシールド":
               自爆blk += 3
               my_items.remove("スーパーシールド")
@@ -456,12 +442,14 @@ while mainrunning:
                   f'スーパーシールドを使った!', True, text_color)
               道具2_text = font_battle.render(
                   f'自爆のダメージが-15される!', True, text_color)
+              道具img = スーパーシールドimg
             elif 選択された道具 == "ソード":
               my_items.remove("ソード")
               道具1_text = font_battle.render(
                   f'ソードを使った!', True, text_color)
               道具2_text = font_battle.render(
                   f'50%の確率の確率で与えるダメージが+10される!', True, text_color)
+              道具img = ソードimg
               if random.random() < 0.5:
                 my_atkP += 10
             elif 選択された道具 == "TNT":
@@ -472,6 +460,7 @@ while mainrunning:
                   f'TNTを使った!', True, text_color)
               道具2_text = font_battle.render(
                   f'与えるダメージを+25、自爆のダメージを+30する!', True, text_color)
+              道具img = TNTimg
             elif 選択された道具 == "救急箱":
               my_items.remove("救急箱")
               my_HP += 20
@@ -479,6 +468,7 @@ while mainrunning:
                   f'救急箱を使った!', True, text_color)
               道具2_text = font_battle.render(
                   f'自分のHPを20回復する!', True, text_color)
+              道具img = 救急箱img
             elif 選択された道具 == "爆弾解除装置":
               my_items.remove("爆弾解除装置")
               右クリック制限prus = 3
@@ -486,6 +476,7 @@ while mainrunning:
                   f'爆弾解除装置を使った!', True, text_color)
               道具2_text = font_battle.render(
                   f'次の爆弾解除装置の数が+3される!', True, text_color)
+              道具img = 爆弾処理装置img
 
           elif event.key == pygame.K_SPACE:
             attckmode = True
@@ -602,8 +593,9 @@ while mainrunning:
     elif 道具選択 == True and 道具一覧 == False:
       screen.blit(道具1_text, (520, 430))
       screen.blit(道具2_text, (520, 460))
+      screen.blit(道具img, (1000, 500))
       pygame.display.flip()
-      time.sleep(2)
+      time.sleep(3)
       attckmode = True
       道具選択 = False
 
