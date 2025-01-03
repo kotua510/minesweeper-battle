@@ -37,6 +37,15 @@ TNTimg = pygame.image.load("image/TNT.png")
 爆弾処理装置img = pygame.image.load("image/爆弾処理装置.png")
 ene_img = pygame.image.load("image/宇宙人.png")
 
+エネスティsound = pygame.mixer.Sound("sound/エネスティ.mp3")
+道具使用sound = pygame.mixer.Sound("sound/バフ.mp3")
+開始sound = pygame.mixer.Sound("sound/開始.mp3")
+終了sound = pygame.mixer.Sound("sound/終了.mp3")
+選択sound = pygame.mixer.Sound("sound/選択.mp3")
+決定sound = pygame.mixer.Sound("sound/決定.mp3")
+攻撃sound = pygame.mixer.Sound("sound/攻撃.mp3")
+敵攻撃sound = pygame.mixer.Sound("sound/敵攻撃.mp3")
+
 my_items = []
 
 def item_get():
@@ -396,27 +405,35 @@ while mainrunning:
       elif event.type == pygame.KEYDOWN:
         if event.key == pygame.K_UP:
           selected_index = (selected_index - 1) % len(serect)
+          選択sound.play()
         if event.key == pygame.K_DOWN:
           selected_index = (selected_index + 1) % len(serect)
+          選択sound.play()
 
         if event.key == pygame.K_UP:
           selected_index1 = (selected_index1 - 1) % len(my_items)
+          選択sound.play()
         if event.key == pygame.K_DOWN:
           selected_index1 = (selected_index1 + 1) % len(my_items)
+          選択sound.play()
 
         if selected_index == 0:
           if event.key == pygame.K_w and my_EP >= 1:
+            選択sound.play()
             my_atkP += 1
             my_EP -= 1
           elif event.key == pygame.K_s:
+            選択sound.play()
             if my_atkP >= 1:
               my_atkP -= 1
               my_EP += 1
         elif selected_index == 1:
           if event.key == pygame.K_w and my_EP >= 1:
+            選択sound.play()
             my_blkP += 1
             my_EP -= 1
           elif event.key == pygame.K_s:
+            選択sound.play()
             if my_blkP >= 1:
               my_blkP -= 1
               my_EP += 1
@@ -425,11 +442,13 @@ while mainrunning:
             道具選択 = True
             selected_index = 0
             selected_index1 = 0
+            決定sound.play()
 
         if 道具選択 == True:
           if event.key == pygame.K_u:
             道具一覧 = False
             選択された道具 = my_items[selected_index1]
+            決定sound.play()
             if 選択された道具 == "シールド":
               自爆blk += 1
               my_items.remove("シールド")
@@ -484,6 +503,7 @@ while mainrunning:
           elif event.key == pygame.K_SPACE:
             attckmode = True
             道具選択 = False
+            選択sound.play()
 
     if 道具選択 == True and 道具一覧 == True:
       for i, text1 in enumerate(my_items):
@@ -535,6 +555,7 @@ while mainrunning:
       screen.blit(自爆_text1, (520, 430))
       screen.blit(自爆_text2, (520, 460))
       screen.blit(自爆_text3, (520, 490))
+      敵攻撃sound.play()
       pygame.display.flip()
       time.sleep(3)
       if my_HP <= 0:
@@ -560,6 +581,7 @@ while mainrunning:
             f"{名前}に{dammge}ポイントのダメージ!", True, text_color)
         screen.blit(ene_attck_text1, (520, 430))
         screen.blit(ene_attck_text2, (520, 460))
+        敵攻撃sound.play()
         pygame.display.flip()
         time.sleep(2)
         自爆計算 = True
@@ -573,6 +595,7 @@ while mainrunning:
             f"{名前}のエネルギーが{ene_atkP}ポイント減少した!", True, text_color)
         screen.blit(ene_attck_text3, (520, 430))
         screen.blit(ene_attck_text4, (520, 460))
+        エネスティsound.play()
         pygame.display.flip()
         time.sleep(2)
         自爆計算 = True
@@ -586,6 +609,7 @@ while mainrunning:
       text_attck2 = font_battle.render(f"宇宙人に{my_atkP}のダメージ", True, text_color)
       screen.blit(text_attck1, (520, 430))
       screen.blit(text_attck2, (520, 460))
+      攻撃sound.play()
       pygame.display.flip()
       time.sleep(2)
       if ene_HP <= 0:
@@ -597,6 +621,7 @@ while mainrunning:
       screen.blit(道具1_text, (520, 430))
       screen.blit(道具2_text, (520, 460))
       screen.blit(道具img, (1000, 500))
+      道具使用sound.play()
       pygame.display.flip()
       time.sleep(3)
       attckmode = True
