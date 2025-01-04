@@ -45,6 +45,9 @@ ene_img = pygame.image.load("image/宇宙人.png")
 決定sound = pygame.mixer.Sound("sound/決定.mp3")
 攻撃sound = pygame.mixer.Sound("sound/攻撃.mp3")
 敵攻撃sound = pygame.mixer.Sound("sound/敵攻撃.mp3")
+自爆sound = pygame.mixer.Sound("sound/爆発2.mp3")
+クリアsound = pygame.mixer.Sound("sound/ゲームクリア.mp3")
+負けsound = pygame.mixer.Sound("sound/ゲームオーバー.mp3")
 
 my_items = []
 
@@ -101,6 +104,8 @@ font_bigtext = pygame.font.SysFont("msgothic", 80)
 
 タイトルrunning = True
 battle_statu = False
+
+plus_bombs = 0
 
 マインスイーパー開始_text = font_bigtext.render(f'爆弾を解除しろ!!!', True, text_color)
 マインスイーパー終了_text = font_bigtext.render(f'終了!!!', True, text_color)
@@ -203,8 +208,6 @@ while mainrunning:
     bombs = [[False for _ in range(cols)] for _ in range(rows)]
     corect = [[False for _ in range(cols)]for _ in range(rows)]
     not右クリック = [[False for _ in range(cols)]for _ in range(rows)]
-    num_bombs += 2
-    all_bombs += 2
 
     増加エネルギー量 = 0
     解除爆弾数 = 0
@@ -216,8 +219,6 @@ while mainrunning:
     マインスイーパーrunning = True
     マインスイーパー終了 = False
 
-    右クリック制限prus = 0
-    右クリック制限 = int(all_bombs + 3 + 右クリック制限prus)
     while num_bombs > 0:
 
       row = random.randint(0, rows - 1)
@@ -225,7 +226,14 @@ while mainrunning:
       if not bombs[row][col]:
         bombs[row][col] = True
         num_bombs -= 1
-    print("aaa")
+
+    num_bombs = 18
+    all_bombs = 18
+    plus_bombs += 2
+    num_bombs = plus_bombs + num_bombs
+    all_bombs = plus_bombs + all_bombs
+    右クリック制限prus = 0
+    右クリック制限 = int(all_bombs + 3 + 右クリック制限prus)
 
   while マインスイーパーrunning:
 
@@ -526,6 +534,7 @@ while mainrunning:
     elif ene_end == True:
       ene_end_text = font_battle.render(f"宇宙人を倒した!", True, text_color)
       screen.blit(ene_end_text, (520, 430))
+      クリアsound.play()
       pygame.display.flip()
       time.sleep(3)
       battlerunning = False
@@ -534,6 +543,7 @@ while mainrunning:
     elif my_end == True:
       my_end_text = font_battle.render(f"{名前}は宇宙人に倒されてしまった", True, text_color)
       screen.blit(my_end_text, (520, 430))
+      負けsound.play()
       pygame.display.flip()
       time.sleep(3)
       battlerunning = False
@@ -555,7 +565,7 @@ while mainrunning:
       screen.blit(自爆_text1, (520, 430))
       screen.blit(自爆_text2, (520, 460))
       screen.blit(自爆_text3, (520, 490))
-      敵攻撃sound.play()
+      自爆sound.play()
       pygame.display.flip()
       time.sleep(3)
       if my_HP <= 0:
