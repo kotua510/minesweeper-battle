@@ -20,7 +20,7 @@ my_HP = 150
 my_EP = 0
 ene_HP = 150
 # 制限時間
-制限時間 = 3  # 30
+制限時間 = 30
 
 clock = pygame.time.Clock()
 
@@ -107,31 +107,45 @@ battle_statu = False
 
 plus_bombs = 0
 
+開始状態 = 0
+中間状態 = 0
+
 マインスイーパー開始_text = font_bigtext.render(f'爆弾を解除しろ!!!', True, text_color)
 マインスイーパー終了_text = font_bigtext.render(f'終了!!!', True, text_color)
 
 def show_countdown1(screen, font, background_color, clock):
+  global 開始状態
   countdown_texts = ["3", "2", "1", "Go!"]
   for text in countdown_texts:
     screen.fill(background_color)
     countdown_surface = font.render(text, True, (255, 255, 255))
     screen.blit(countdown_surface, (590, 300))
+    開始状態 += 1
+    if 開始状態 == 4:
+      開始sound.play()
+      開始状態 = 0
     pygame.display.flip()
     for _ in range(60):  # 約1秒間表示（60 FPSの場合）
       clock.tick(60)  # フレームレートを維持
 
 def show_countdown(screen, font, background_color, clock):
   countdown_texts = ["3", "2", "1", "Go!"]
+  global 中間状態
   for text in countdown_texts:
     screen.fill(background_color)
     countdown_surface = font.render(text, True, (255, 255, 255))
     screen.blit(countdown_surface, (590, 300))
+    中間状態 += 1
+    if 中間状態 == 4:
+      開始sound.play()
+      中間状態 = 0
     pygame.display.flip()
     for _ in range(60):  # 約1秒間表示（60 FPSの場合）
       clock.tick(60)  # フレームレートを維持
 
 名前入力 = True
 名前 = ""
+
 
 while タイトルrunning:
   if 名前入力:
@@ -342,8 +356,9 @@ while mainrunning:
 
     if マインスイーパー終了 == True:
       screen.blit(マインスイーパー終了_text, (440, 300))
+      終了sound.play()
       pygame.display.flip()
-      for _ in range(120):  # 1秒間表示（60 FPS）
+      for _ in range(210):  # 1秒間表示（60 FPS）
         clock.tick(60)
       screen.fill(background_color)
       battlerunning = True
@@ -568,7 +583,7 @@ while mainrunning:
       screen.blit(自爆_text3, (520, 490))
       自爆sound.play()
       pygame.display.flip()
-      time.sleep(3)
+      time.sleep(4)
       if my_HP <= 0:
         my_HP = 0
         my_end = True
@@ -594,7 +609,7 @@ while mainrunning:
         screen.blit(ene_attck_text2, (520, 460))
         敵攻撃sound.play()
         pygame.display.flip()
-        time.sleep(2)
+        time.sleep(3)
         自爆計算 = True
       else:
         my_EP = my_EP - ene_atkP
@@ -608,7 +623,7 @@ while mainrunning:
         screen.blit(ene_attck_text4, (520, 460))
         エネスティsound.play()
         pygame.display.flip()
-        time.sleep(2)
+        time.sleep(3)
         自爆計算 = True
       if my_HP <= 0:
         my_HP = 0
@@ -622,7 +637,7 @@ while mainrunning:
       screen.blit(text_attck2, (520, 460))
       攻撃sound.play()
       pygame.display.flip()
-      time.sleep(2)
+      time.sleep(3)
       if ene_HP <= 0:
         ene_end = True
       else:
@@ -634,7 +649,7 @@ while mainrunning:
       screen.blit(道具img, (1000, 500))
       道具使用sound.play()
       pygame.display.flip()
-      time.sleep(3)
+      time.sleep(4)
       attckmode = True
       道具選択 = False
 
