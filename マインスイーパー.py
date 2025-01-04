@@ -285,11 +285,12 @@ while mainrunning:
 
   # 範囲内のセルを開く
             if 0 <= row < rows and 0 <= col < cols and bombs[row][col]:
+              if opened[row][col] == False:
+                増加エネルギー量 += 1
+                解除爆弾数 += 1
               opened[row][col] = True
               corect[row][col] = True
               corect[row][col] = corect[row][col]
-              増加エネルギー量 += 1
-              解除爆弾数 += 1
 
   # 背景の描画
     screen.fill(background_color)
