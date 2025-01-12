@@ -78,6 +78,7 @@ def count_adjacent_bombs(r, c):
         count += 1
   return count
 
+
 # 0のセルを再帰的に開く関数
 def open_empty_cells(r, c):
   for dr in [-1, 0, 1]:
