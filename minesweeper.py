@@ -29,7 +29,7 @@ rows, cols = 15, 15  # グリッドの行数と列数
 cell_size = game_area.width // cols  # 1セルの幅（正方形）
 
 
-シールドimg = pygame.image.load("image/シールド.png")
+シールドimg = pygame.image.load("image/shield.png")
 スーパーシールドimg = pygame.image.load("image/スーパーシールド.png")
 ソードimg = pygame.image.load("image/ソード.png")
 TNTimg = pygame.image.load("image/TNT.png")
