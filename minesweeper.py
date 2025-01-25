@@ -30,12 +30,12 @@ cell_size = game_area.width // cols  # 1セルの幅（正方形）
 
 
 シールドimg = pygame.image.load("image/shield.png")
-スーパーシールドimg = pygame.image.load("image/スーパーシールド.png")
-ソードimg = pygame.image.load("image/ソード.png")
+スーパーシールドimg = pygame.image.load("image/S_shield.png")
+ソードimg = pygame.image.load("image/sword.png")
 TNTimg = pygame.image.load("image/TNT.png")
-救急箱img = pygame.image.load("image/救急箱.png")
-爆弾処理装置img = pygame.image.load("image/爆弾処理装置.png")
-ene_img = pygame.image.load("image/宇宙人.png")
+救急箱img = pygame.image.load("image/heal.png")
+爆弾処理装置img = pygame.image.load("image/bomb_break.png")
+ene_img = pygame.image.load("image/ene.png")
 
 エネスティsound = pygame.mixer.Sound("sound/エネスティ.mp3")
 道具使用sound = pygame.mixer.Sound("sound/バフ.mp3")
