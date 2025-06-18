@@ -291,6 +291,7 @@ while big_main_running:
           all_bombs =  all_bombs
 
       while mine_running:
+        screen.blit(back_img, (0,0))
         if option_bool:
           pygame.draw.rect(screen, background_color, (7,496,480,175),0)
           pygame.draw.rect(screen, text_color, (7,496,480,175),1)
@@ -302,9 +303,9 @@ while big_main_running:
           screen.blit(energy_select_text,(10,650))
           screen.blit(menu_see_text,(210,500))
           screen.blit(mode_select_text,(245,530)) 
-        else:
-          pygame.draw.rect(screen, background_color, (7,496,480,175),0)
-          pygame.draw.rect(screen, text_color, (7,496,480,175),1)
+        #else:
+          #pygame.draw.rect(screen, background_color, (7,496,480,175),0)
+          #pygame.draw.rect(screen, text_color, (7,496,480,175),1)
 
         pygame.draw.rect(screen,background_color,(40,60,410,35),0)
         pygame.draw.rect(screen,text_color,(40,60,410,35),2)
@@ -448,6 +449,7 @@ while big_main_running:
 
       my_EP = int(my_EP + add_energy)
       while battlerunning:
+        screen.blit(back_img, (0,0))
         if option_bool:
           pygame.draw.rect(screen, background_color, (7,496,480,175),0)
           pygame.draw.rect(screen, text_color, (7,496,480,175),1)
@@ -459,9 +461,9 @@ while big_main_running:
           screen.blit(energy_select_text,(10,650))
           screen.blit(menu_see_text,(210,500))
           screen.blit(mode_select_text,(245,530)) 
-        else:
-          pygame.draw.rect(screen, background_color, (7,496,480,175),0)
-          pygame.draw.rect(screen, text_color, (7,496,480,175),1)
+        #else:
+          #pygame.draw.rect(screen, background_color, (7,496,480,175),0)
+          #pygame.draw.rect(screen, text_color, (7,496,480,175),1)
 
 
         RPG_draw()  # RPG描画処理
