@@ -844,7 +844,7 @@ while big_main_running:
           battlerunning_tut = False
           my_HP = 120
           my_EP = 0
-          ene_HP = 1
+          ene_HP = 100
           time_limit = 30
           my_items = []
           num_bombs = 16
