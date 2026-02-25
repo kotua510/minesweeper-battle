@@ -487,7 +487,6 @@ while big_main_running:
 
             elif event.button == 3 and right_click_limit >= 1:
               right_click_limit = int(right_click_limit - 1)
-              print(right_click_limit)
               mouse_x, mouse_y = event.pos
 
       # クリックがゲームエリア内なら処理を実行
@@ -512,7 +511,6 @@ while big_main_running:
             if event.key == pygame.K_o:
               option_bool = not option_bool
             elif event.key == pygame.K_n:
-              print("nok")
               mine_end_tut = True
               pygame.display.flip()
               pygame.time.wait(100) 
@@ -661,7 +659,6 @@ while big_main_running:
           elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_o:
               option_bool = not option_bool
-              print(option_bool)
             elif event.key == pygame.K_RIGHT:
               if tuta_text_index != 16:
                 tuta_text_index += 1
@@ -688,7 +685,6 @@ while big_main_running:
               choice_sound.play()
             if event.key == pygame.K_TAB:
                 tutorial_end = True
-                print("0")
 
             if selected_index == 0:
               if event.key == pygame.K_w and my_EP >= 1:
@@ -790,7 +786,6 @@ while big_main_running:
 
               elif event.key == pygame.K_TAB:
                 tutorial_end = True
-                print("ok1")
 
         if item_choice == True and item_list == True:
           for i, text1 in enumerate(my_items):
@@ -833,7 +828,7 @@ while big_main_running:
 
               elif event.key == pygame.K_TAB:
                 tutorial_end = True
-                print("ok2")
+
 
 
         pygame.display.flip()
@@ -866,7 +861,6 @@ while big_main_running:
 #-------------------------------------------------------------------------------ここまでtutorial
       
     while mainrunning:
-      print("ok")
       screen.blit(back_img, (0,0))
       pygame.mixer.music.play(-1)
       pygame.mixer.music.set_volume(0.2)
@@ -971,7 +965,6 @@ while big_main_running:
 
             elif event.button == 3 and right_click_limit >= 1:
               right_click_limit = int(right_click_limit - 1)
-              print(right_click_limit)
               mouse_x, mouse_y = event.pos
 
       # クリックがゲームエリア内なら処理を実行
@@ -996,9 +989,6 @@ while big_main_running:
             if event.key == pygame.K_o:
               option_bool = not option_bool
 
-      # 背景の描画
-
-      # マインスイーパーのグリッドを描画
       # マインスイーパーのグリッドを描画
         for row in range(rows):
           for col in range(cols):
@@ -1134,7 +1124,6 @@ while big_main_running:
           elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_o:
               option_bool = not option_bool
-              print(option_bool)
             if event.key == pygame.K_UP:
               selected_index = (selected_index - 1) % len(serect)
               choice_sound.play()
