@@ -19,14 +19,13 @@ pygame.display.set_caption("マインスイーパー&バトル")
 my_HP = 120
 my_EP = 0
 ene_HP = 100
-# time_limit
 time_limit = 30
 
 clock = pygame.time.Clock()
 
 # グリッドサイズ
 rows, cols = 15, 15  # グリッドの行数と列数
-cell_size = game_area.width // cols  # 1セルの幅（正方形）
+cell_size = game_area.width // cols  # 1セルの幅
 
 
 shield_img = pygame.image.load("image/shield.png")
@@ -72,7 +71,7 @@ def item_get():
     else:
       my_items.append("爆弾解除装置")
 
-# 周囲の爆弾数をカウントする関数
+
 def count_adjacent_bombs(r, c):
   count = 0
   for dr in [-1, 0, 1]:
@@ -83,7 +82,7 @@ def count_adjacent_bombs(r, c):
   return count
 
 
-# 0のセルを再帰的に開く関数
+# 0のセルを開く関数
 def open_empty_cells(r, c):
   for dr in [-1, 0, 1]:
     for dc in [-1, 0, 1]:
@@ -232,8 +231,8 @@ def show_countdown1(screen, font, background_color, clock):
       start_sound.play()
       stutas_start = 0
     pygame.display.flip()
-    for _ in range(60):  # 約1秒間表示（60 FPSの場合）
-      clock.tick(60)  # フレームレートを維持
+    for _ in range(60):  #60FPS
+      clock.tick(60)
 
 def show_countdown(screen, font, background_color, clock):
   countdown_texts = ["3", "2", "1", "Go!"]
@@ -247,19 +246,16 @@ def show_countdown(screen, font, background_color, clock):
       start_sound.play()
       stutas_middle = 0
     pygame.display.flip()
-    for _ in range(60):  # 約1秒間表示（60 FPSの場合）
-      clock.tick(60)  # フレームレートを維持
+    for _ in range(60):
+      clock.tick(60)
 
 name_input = True
 name = "スペースランナー"
 first_OP_setting = True
-
 big_main_running = True
-
 tutorial = True
 
 while big_main_running:
-    
 
     while title_running:
       if name_input:
@@ -301,7 +297,7 @@ while big_main_running:
           screen.fill(background_color)
           screen.blit(mine_start_text, (280, 300))
           pygame.display.flip()
-          for _ in range(120):  # 1秒間表示（60 FPS）
+          for _ in range(120):
             clock.tick(60)
           show_countdown1(screen, font_big1text, background_color, clock)
         else:
@@ -309,7 +305,7 @@ while big_main_running:
           screen.fill(background_color)
           screen.blit(tuta_start_text, (120, 300))
           pygame.display.flip()
-          for _ in range(120):  # 1秒間表示（60 FPS）
+          for _ in range(120):
             clock.tick(60)
         
         
@@ -330,17 +326,11 @@ while big_main_running:
 
 
     mine_end = False
-
     mine_end_tut = False
-
     first_setting = True
-
     first_setting_tut = True
-
     tutorial_end = False
-
     battlerunning = False
-
     battlerunning_tut = False
 
     def RPG_draw():
@@ -375,12 +365,10 @@ while big_main_running:
 
     num_bombs = 16
     all_bombs = 16
-
     mainrunning = True
     
     while tutorial:
       screen.blit(back_img, (0,0))
-      
       # ゲームループ
       if first_setting_tut == True:
         my_atkP = 0
@@ -443,7 +431,6 @@ while big_main_running:
         pygame.draw.rect(screen,background_color,(40,60,410,35),0)
         pygame.draw.rect(screen,text_color,(40,60,410,35),2)
 
-
         color = (0, 255, 0)
 
         right_click_limit_text = font_minseeper.render(
@@ -463,7 +450,6 @@ while big_main_running:
           elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
               
-
               # クリックされた座標を取得
               mouse_x, mouse_y = event.pos
 
@@ -489,13 +475,10 @@ while big_main_running:
               right_click_limit = int(right_click_limit - 1)
               mouse_x, mouse_y = event.pos
 
-      # クリックがゲームエリア内なら処理を実行
               if game_area.collidepoint(mouse_x, mouse_y):
-                # ゲームエリア内のセル座標を計算
                 col = (mouse_x - game_area.x) // cell_size
                 row = (mouse_y - game_area.y) // cell_size
 
-      # 範囲内のセルを開く
                 if 0 <= row < rows and 0 <= col < cols and bombs[row][col]:
                   if opened[row][col]:
                     right_click_limit = int(right_click_limit + 1)
@@ -528,7 +511,7 @@ while big_main_running:
                 tuta_text_index -= 1
                 choice_sound.play()
 
-      # マインスイーパーのグリッドを描画
+      # マインスイーパーを描画
         for row in range(rows):
           for col in range(cols):
             cell_x = game_area.x + col * cell_size
@@ -536,7 +519,7 @@ while big_main_running:
             cell_rect = pygame.Rect(cell_x, cell_y, cell_size, cell_size)
 
             if opened[row][col]:
-              # 青色 (正解フラグ)
+              # 青色 (正解)
               if bombs[row][col] and corect[row][col] and not_right_click[row][col] == False:
                 pygame.draw.rect(screen, corect_color, cell_rect)
               elif bombs[row][col]:  # 赤色 (爆弾)
@@ -553,8 +536,7 @@ while big_main_running:
             else:
               pygame.draw.rect(screen, cell_color, cell_rect)
 
-            pygame.draw.rect(screen, (0, 0, 0), cell_rect, 1)  # セルの枠線
-
+            pygame.draw.rect(screen, (0, 0, 0), cell_rect, 1) 
 
         screen.blit(right_click_limit_text, (50, 70))
         screen.blit(bomb_num_text, (300, 70))
@@ -577,7 +559,6 @@ while big_main_running:
       my_end = False
       my_exp_plus = 0
       
-
       my_EP = int(my_EP + add_energy)
       while battlerunning_tut:
         screen.blit(back_img, (0,0))
@@ -608,7 +589,7 @@ while big_main_running:
         pygame.draw.rect(screen,background_color,(40,60,410,35),0)
         pygame.draw.rect(screen,text_color,(40,60,410,35),2)
 
-        RPG_draw_tuta()  # RPG描画処理
+        RPG_draw_tuta()
 
         if item_getflg == True:
           item_get()
@@ -618,7 +599,6 @@ while big_main_running:
                   f"防御に使うエネルギーを決めてください {my_blkP}",
                   f"残りエネルギー {my_EP}"]
 
-      # マインスイーパーのグリッドを描画
         for row in range(rows):
           for col in range(cols):
             cell_x = game_area.x + col * cell_size
@@ -856,19 +836,17 @@ while big_main_running:
             clock.tick(60)
         
           screen.fill(background_color)
-          show_countdown1(screen, font_big1text, background_color, clock) #tutorialに渡す
+          show_countdown1(screen, font_big1text, background_color, clock) 
 
-#-------------------------------------------------------------------------------ここまでtutorial
+#--------------------------------------ここまでtutorial
       
     while mainrunning:
       screen.blit(back_img, (0,0))
       pygame.mixer.music.play(-1)
       pygame.mixer.music.set_volume(0.2)
-      # ゲームループ
       if first_setting == True:
         my_atkP = 0
         my_blkP = 0
-        # セルの開閉状態と爆弾配置
         opened = [[False for _ in range(cols)] for _ in range(rows)]
         bombs = [[False for _ in range(cols)] for _ in range(rows)]
         corect = [[False for _ in range(cols)]for _ in range(rows)]
@@ -921,7 +899,6 @@ while big_main_running:
 
         ene_atkP = random.randint(4, 15)
         ene_blkP = random.randint(4, 8)
-
         color = (0, 255, 0)
 
         right_click_limit_text = font_minseeper.render(
@@ -940,18 +917,12 @@ while big_main_running:
 
           elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
-              
-
-              # クリックされた座標を取得
               mouse_x, mouse_y = event.pos
 
-        # クリックがゲームエリア内なら処理を実行
               if game_area.collidepoint(mouse_x, mouse_y):
-                # ゲームエリア内のセル座標を計算
                 col = (mouse_x - game_area.x) // cell_size
                 row = (mouse_y - game_area.y) // cell_size
 
-          # 範囲内のセルを開く
                 if 0 <= row < rows and 0 <= col < cols:
                   if opened[row][col]:
                     continue
@@ -962,18 +933,14 @@ while big_main_running:
                     my_exp += 1
                     bomb_bool = True
 
-
             elif event.button == 3 and right_click_limit >= 1:
               right_click_limit = int(right_click_limit - 1)
               mouse_x, mouse_y = event.pos
 
-      # クリックがゲームエリア内なら処理を実行
               if game_area.collidepoint(mouse_x, mouse_y):
-                # ゲームエリア内のセル座標を計算
                 col = (mouse_x - game_area.x) // cell_size
                 row = (mouse_y - game_area.y) // cell_size
 
-      # 範囲内のセルを開く
                 if 0 <= row < rows and 0 <= col < cols and bombs[row][col]:
                   if opened[row][col]:
                     right_click_limit = int(right_click_limit + 1)
@@ -989,7 +956,6 @@ while big_main_running:
             if event.key == pygame.K_o:
               option_bool = not option_bool
 
-      # マインスイーパーのグリッドを描画
         for row in range(rows):
           for col in range(cols):
             cell_x = game_area.x + col * cell_size
@@ -997,13 +963,12 @@ while big_main_running:
             cell_rect = pygame.Rect(cell_x, cell_y, cell_size, cell_size)
 
             if opened[row][col]:
-              # 青色 (正解フラグ)
               if bombs[row][col] and corect[row][col] and not_right_click[row][col] == False:
                 pygame.draw.rect(screen, corect_color, cell_rect)
-              elif bombs[row][col]:  # 赤色 (爆弾)
+              elif bombs[row][col]:
                 pygame.draw.rect(screen, bomb_color, cell_rect)
                 not_right_click[row][col] = True
-              else:  # 開いたセル
+              else:
                 pygame.draw.rect(screen, opened_color, cell_rect)
                 bomb_count = count_adjacent_bombs(row, col)
                 if bomb_count > 0:
@@ -1014,7 +979,7 @@ while big_main_running:
             else:
               pygame.draw.rect(screen, cell_color, cell_rect)
 
-            pygame.draw.rect(screen, (0, 0, 0), cell_rect, 1)  # セルの枠線
+            pygame.draw.rect(screen, (0, 0, 0), cell_rect, 1)
 
         prog_time = time.time() - start
         if prog_time > time_limit:
@@ -1073,7 +1038,7 @@ while big_main_running:
         pygame.draw.rect(screen,background_color,(40,60,410,35),0)
         pygame.draw.rect(screen,text_color,(40,60,410,35),2)
 
-        RPG_draw()  # RPG描画処理
+        RPG_draw()
 
         if item_getflg == True:
           item_get()
@@ -1083,7 +1048,6 @@ while big_main_running:
                   f"防御に使うエネルギーを決めてください {my_blkP}",
                   f"残りエネルギー {my_EP}"]
 
-      # マインスイーパーのグリッドを描画
         for row in range(rows):
           for col in range(cols):
             cell_x = game_area.x + col * cell_size
@@ -1107,7 +1071,7 @@ while big_main_running:
             else:
               pygame.draw.rect(screen, cell_color, cell_rect)
 
-            pygame.draw.rect(screen, (0, 0, 0), cell_rect, 1)  # セルの枠線
+            pygame.draw.rect(screen, (0, 0, 0), cell_rect, 1)
 
         screen.blit(right_click_limit_text, (50, 70))
         screen.blit(bomb_num_text, (300, 70))
@@ -1268,7 +1232,6 @@ while big_main_running:
           first_OP_setting = True
           bgm = pygame.mixer_music.load("sound/OP_BGM.mp3")
 
-          
         elif my_end == True:
           my_end_text = font_battle.render(f"{name}は宇宙人に倒されてしまった", True, text_color)
           screen.blit(my_end_text, (520, 430))
@@ -1292,7 +1255,6 @@ while big_main_running:
           name_input = True
           first_OP_setting = True
           bgm = pygame.mixer_music.load("sound/OP_BGM.mp3")
-
 
         elif my_exp_calc == True:
           my_exp_dammge = int(int(my_exp - my_exp_blk) * 5)
